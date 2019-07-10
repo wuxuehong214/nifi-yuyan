@@ -9,6 +9,14 @@ public class Keyword {
 	private String create_time;
 	private String description;
 	private boolean pushable;
+	private Long obj_id;
+	
+	public Long getObj_id() {
+		return obj_id;
+	}
+	public void setObj_id(Long obj_id) {
+		this.obj_id = obj_id;
+	}
 	public Integer getId() {
 		return id;
 	}

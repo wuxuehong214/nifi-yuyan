@@ -19,7 +19,6 @@ package org.apache.nifi.yuyan;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +56,7 @@ import org.apache.nifi.processor.util.StandardValidators;
 @Tags({"keyword","compare","yuyan","关键词","舆情策略","爬取策略"})
 @CapabilityDescription("将爬取到的资源内容与关键词进行比对，判断是否包含关键词")
 @SeeAlso({})
-@ReadsAttributes({@ReadsAttribute(attribute="KEYWORD_ID", description="匹配的关键词ID")})
+@ReadsAttributes({@ReadsAttribute(attribute="keyword_id", description="匹配的关键词ID")})
 @WritesAttributes({@WritesAttribute(attribute="", description="")})
 public class KeywordCompareProcessor extends AbstractProcessor {
 
@@ -182,7 +181,8 @@ public class KeywordCompareProcessor extends AbstractProcessor {
         				 flow = session.write(flow, (out)->{
         					 out.write(content.getBytes(StandardCharsets.UTF_8));
         				 });
-        				 flow = session.putAttribute(flow, "KEYWORD_ID", String.valueOf(word.getId()));
+        				 flow = session.putAttribute(flow, "keyword_id", String.valueOf(word.getId()));
+        				 flow = session.putAttribute(flow, "obj_id", String.valueOf(word.getObj_id()));
 //        				 ffs.add(flow);
         				 session.transfer(flow, REL_MATCHED);
         			 }
